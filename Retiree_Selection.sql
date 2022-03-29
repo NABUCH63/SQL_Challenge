@@ -3,6 +3,8 @@ DROP TABLE IF EXISTS Employment_History;
 DROP TABLE IF EXISTS Retirement_Titles;
 DROP TABLE IF EXISTS Unique_Titles;
 DROP TABLE IF EXISTS retiring_titles;
+DROP TABLE IF EXISTS retiring_titles_by_dept;
+
 
 -- perform query to join employees and titles data
 SELECT Titles.emp_no, Titles.title, Titles.from_date, Titles.to_date, Employees.first_name, Employees.last_name, Employees.birth_date 
@@ -36,14 +38,14 @@ COPY Unique_Titles TO 'C:\Users\Nodak\Documents\GitHub\SQL_Challenge\Output\Uniq
 
 -- perform query to count the number of employees from each title set to retire by department
 SELECT COUNT(title), title, Unique_Titles.dept_name
-INTO retiring_titles 
+INTO retiring_titles_by_dept
 FROM Unique_Titles
 GROUP BY title, Unique_Titles.dept_name
 ORDER BY COUNT(title) DESC;
 
 -- perform query to count number of employees for each title
 SELECT COUNT(title), title 
-INTO retiring_titles_by_dept 
+INTO retiring_titles 
 FROM Unique_Titles
 GROUP BY title
 ORDER BY COUNT(title) DESC;
